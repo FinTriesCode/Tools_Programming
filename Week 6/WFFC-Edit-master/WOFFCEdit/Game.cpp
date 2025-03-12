@@ -5,6 +5,7 @@
 #include "pch.h"
 #include "Game.h"
 #include "DisplayObject.h"
+#include "Camera.h"
 #include <string>
 #include <sstream>
 
@@ -27,31 +28,6 @@ Game::Game()
 	//functional
 	m_movespeed = 0.30;
 	m_camRotRate = 3.0;
-
-	//camera
-	m_camPosition.x = 0.0f;
-	m_camPosition.y = 3.7f;
-	m_camPosition.z = -3.5f;
-
-	m_camOrientation.x = 0;
-	m_camOrientation.y = 0;
-	m_camOrientation.z = 0;
-
-	m_camLookAt.x = 0.0f;
-	m_camLookAt.y = 0.0f;
-	m_camLookAt.z = 0.0f;
-
-	m_camLookDirection.x = 0.0f;
-	m_camLookDirection.y = 0.0f;
-	m_camLookDirection.z = 1.0f;
-
-	m_camUp.x = 0;
-	m_camUp.y = 0;
-	m_camUp.z = 0;
-
-	m_camRight.x = 1.0f;
-	m_camRight.y = 0.0f;
-	m_camRight.z = 0.0f;
 }
 
 Game::~Game()
@@ -84,6 +60,11 @@ void Game::Initialize(HWND window, int width, int height)
     CreateWindowSizeDependentResources();
 
 	GetClientRect(window, &m_ScreenDimensions);
+
+	standardCamera.Initialise();
+	standardCamera.cameraActive = true;
+	mainCamera.Initialise();
+	focusCamera.Initialise();
 
 #ifdef DXTK_AUDIO
     // Create DirectXTK for Audio objects
@@ -141,60 +122,31 @@ void Game::Tick(InputCommands *Input)
 // Updates the world.
 void Game::Update(DX::StepTimer const& timer)
 {
-	/*
-	//TODO  any more complex than this, and the camera should be abstracted out to somewhere else
-	//camera motion is on a plane, so kill the 7 component of the look direction
-	Vector3 planarMotionVector = m_camLookDirection;
-	planarMotionVector.y = 0.0;
-	if (m_InputCommands.rotRight)
+	//if using the normal camera then allow user inputs, and set the main camera's view/pos to match standard camera
+	if (standardCamera.cameraActive)
 	{
-		m_camOrientation.y -= m_camRotRate;
+		standardCamera.Update(m_InputCommands);
+		mainCamera.pos = standardCamera.pos;
+		mainCamera.focusedView = standardCamera.focusedView;
 	}
-	if (m_InputCommands.rotLeft)
+	//otherwise use the focus camera's vars (no update because the player cant move, the view/pos will be set in the picking function when it 
+	//calls the FocusObject() function in camera.cpp
+	else if (focusCamera.cameraActive)
 	{
-		m_camOrientation.y += m_camRotRate;
+		mainCamera.pos = focusCamera.pos;
+		mainCamera.focusedView = focusCamera.focusedView;
+
+		//if user presses the focus button again then go back to the normal camera
+		if (m_InputCommands.unfocus)
+		{
+			standardCamera.cameraActive = true;
+			focusCamera.cameraActive = false;
+		}
 	}
 
-	//create look direction from Euler angles in m_camOrientation
-	m_camLookDirection.x = sin((m_camOrientation.y)*3.1415 / 180);
-	m_camLookDirection.z = cos((m_camOrientation.y)*3.1415 / 180);
-	m_camLookDirection.Normalize();
-
-	//create right vector from look Direction
-	m_camLookDirection.Cross(Vector3::UnitY, m_camRight);*/
-
-	if (m_InputCommands.rightMouseDown)
-		RotateCamByMouse();
-	else
-		startMouseCam = true;
-
-	//process input and update stuff
-	if (m_InputCommands.forward)
-	{	
-		m_camPosition += m_camLookDirection*m_movespeed;
-	}
-	if (m_InputCommands.back)
-	{
-		m_camPosition -= m_camLookDirection*m_movespeed;
-	}
-	if (m_InputCommands.right)
-	{
-		m_camPosition += m_camRight*m_movespeed;
-	}
-	if (m_InputCommands.left)
-	{
-		m_camPosition -= m_camRight*m_movespeed;
-	}
-
-	//update lookat point
-	m_camLookAt = m_camPosition + m_camLookDirection;
-
-	//apply camera vectors
-    m_view = Matrix::CreateLookAt(m_camPosition, m_camLookAt, Vector3::UnitY);
-
-    m_batchEffect->SetView(m_view);
+    m_batchEffect->SetView(mainCamera.focusedView);
     m_batchEffect->SetWorld(Matrix::Identity);
-	m_displayChunk.m_terrainEffect->SetView(m_view);
+	m_displayChunk.m_terrainEffect->SetView(mainCamera.focusedView);
 	m_displayChunk.m_terrainEffect->SetWorld(Matrix::Identity);
 
 #ifdef DXTK_AUDIO
@@ -251,7 +203,7 @@ void Game::Render()
 	//CAMERA POSITION ON HUD
 	m_sprites->Begin();
 	WCHAR   Buffer[256];
-	std::wstring var = L"Cam X: " + std::to_wstring(m_camPosition.x) + L"Cam Z: " + std::to_wstring(m_camPosition.z);
+	std::wstring var = L"Cam X: " + std::to_wstring(mainCamera.pos.x) + L"Cam Z: " + std::to_wstring(mainCamera.pos.z);
 	m_font->DrawString(m_sprites.get(), var.c_str() , XMFLOAT2(100, 10), Colors::Yellow);
 	m_sprites->End();
 
@@ -270,7 +222,7 @@ void Game::Render()
 
 		XMMATRIX local = m_world * XMMatrixTransformation(g_XMZero, Quaternion::Identity, scale, g_XMZero, rotate, translate);
 
-		m_displayList[i].m_model->Draw(context, *m_states, local, m_view, m_projection, false);	//last variable in draw,  make TRUE for wireframe
+		m_displayList[i].m_model->Draw(context, *m_states, local, mainCamera.focusedView, m_projection, false);	//last variable in draw,  make TRUE for wireframe
 
 		m_deviceResources->PIXEndEvent();
 	}
@@ -638,25 +590,6 @@ void Game::RotateCamByMouse()
 	//make this mouse pos the prev for next frame
 	m_PrevMouseX = m_InputCommands.mouseX;
 	m_PrevMouseY = m_InputCommands.mouseY;
-
-	//change yaw and pitch
-	m_camOrientation.y += deltaX; //yaw (side)
-	m_camOrientation.x -= deltaY; //pitch(up)
-
-	//clamp to stop from flipping
-	m_camOrientation.x = std::max(-89.0f, std::min(m_camOrientation.x, 89.0f));
-
-	// Convert to radians
-	float yaw = m_camOrientation.y;
-	float pitch = m_camOrientation.x;
-
-	//use formula from wiki
-	m_camLookDirection = Vector3( cos(yaw * 3.1415f / 180) * cos(pitch * 3.1415 / 180), sin(pitch * 3.1415 / 180), 
-																						sin(yaw * 3.1415 / 180) * cos(pitch * 3.1415 / 180));
-	m_camLookDirection.Normalize();
-
-	//change right vec
-	m_camLookDirection.Cross(Vector3::UnitY, m_camRight);
 }
 
 //pick objects by mouse
@@ -685,9 +618,9 @@ int Game::MousePicking()
 		XMMATRIX local = m_world * XMMatrixTransformation(g_XMZero, Quaternion::Identity, scale, g_XMZero, rotate, translate);
 
 		//Unproject the points on the near and far plane, with respect to the matrix we just created.
-		XMVECTOR nearPoint = XMVector3Unproject(nearSource, 0.0f, 0.0f, m_ScreenDimensions.right, m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, m_projection, m_view, local);
+		XMVECTOR nearPoint = XMVector3Unproject(nearSource, 0.0f, 0.0f, m_ScreenDimensions.right, m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, m_projection, mainCamera.focusedView, local);
 
-		XMVECTOR farPoint = XMVector3Unproject(farSource, 0.0f, 0.0f, m_ScreenDimensions.right, m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, m_projection, m_view, local);
+		XMVECTOR farPoint = XMVector3Unproject(farSource, 0.0f, 0.0f, m_ScreenDimensions.right, m_ScreenDimensions.bottom, m_deviceResources->GetScreenViewport().MinDepth, m_deviceResources->GetScreenViewport().MaxDepth, m_projection, mainCamera.focusedView, local);
 
 		//turn the transformed points into our picking vector. 
 		XMVECTOR pickingVector = farPoint - nearPoint;
@@ -699,6 +632,20 @@ int Game::MousePicking()
 			//checking for ray intersection
 			if (m_displayList[i].m_model.get()->meshes[y]->boundingBox.Intersects(nearPoint, pickingVector, pickedDistance))
 			{
+				//if the focus key is also being held then focus camera to object
+				if (m_InputCommands.focus)
+				{
+					standardCamera.cameraActive = false;
+					focusCamera.cameraActive = true;
+
+					//store the selected objects position to pass to camera class 
+					DirectX::SimpleMath::Vector3 objectPos{ m_displayList[i].m_position.x, m_displayList[i].m_position.y,
+																m_displayList[i].m_position.z };
+
+					//set the camera to focus on the selected object
+					focusCamera.Focus(objectPos);
+				}
+
 				selectedID = i;
 			}
 		}

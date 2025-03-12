@@ -373,5 +373,15 @@ void ToolMain::UpdateInput(MSG * msg)
 	}
 	else m_toolInputCommands.rotLeft = false;
 
+	{
+		m_toolInputCommands.focus = true;
+	}
+	else m_toolInputCommands.focus = false;
+	if (m_keyArray['G']) //unfocus
+	{
+		m_toolInputCommands.unfocus = true;
+	}
+	else m_toolInputCommands.unfocus = false;
+
 	//WASD
 }

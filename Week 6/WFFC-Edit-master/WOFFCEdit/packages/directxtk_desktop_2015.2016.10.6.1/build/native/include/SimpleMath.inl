@@ -2567,7 +2567,7 @@ inline Matrix Matrix::CreateOrthographicOffCenter( float left, float right, floa
     return R;
 }
 
-inline Matrix Matrix::CreateLookAt( const Vector3& eye, const Vector3& target, const Vector3& up )
+inline Matrix Matrix::CreateFocusPoint( const Vector3& eye, const Vector3& target, const Vector3& up )
 {
     using namespace DirectX;
     Matrix R;

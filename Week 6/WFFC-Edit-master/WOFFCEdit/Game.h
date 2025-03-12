@@ -11,6 +11,7 @@
 #include "DisplayChunk.h"
 #include "ChunkObject.h"
 #include "InputCommands.h"
+#include "Camera.h"
 #include <vector>
 
 
@@ -83,12 +84,9 @@ private:
 	DirectX::SimpleMath::Vector3 mouseDeltas;
 
 	//camera
-	DirectX::SimpleMath::Vector3		m_camPosition;
-	DirectX::SimpleMath::Vector3		m_camOrientation;
-	DirectX::SimpleMath::Vector3		m_camLookAt;
-	DirectX::SimpleMath::Vector3		m_camLookDirection;
-	DirectX::SimpleMath::Vector3		m_camRight;
-	DirectX::SimpleMath::Vector3		m_camUp;	//up vector
+	Camera mainCamera;
+	Camera standardCamera;
+	Camera focusCamera;
 	float m_camRotRate;
 
 	//control variables
