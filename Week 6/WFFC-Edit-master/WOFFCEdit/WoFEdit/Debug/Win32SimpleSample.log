@@ -1,0 +1,27 @@
+﻿  Game.cpp
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(28,16): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(269,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(268,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(267,97): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(253,10): warning C4101: 'Buffer': unreferenced local variable
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(626,33): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(627,33): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(639,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(640,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(655,47): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(654,89): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(654,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(670,81): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(670,57): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(671,80): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(671,56): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(674,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(682,46): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(681,147): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(681,98): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(688,111): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(688,85): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(690,109): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(690,83): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Game.cpp(697,21): warning C4018: '<': signed/unsigned mismatch
+  Win32SimpleSample.vcxproj -> C:\Users\callu\OneDrive\Documents\University\Tools Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Debug\WoFEdit.exe
