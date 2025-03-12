@@ -373,6 +373,7 @@ void ToolMain::UpdateInput(MSG * msg)
 	}
 	else m_toolInputCommands.rotLeft = false;
 
+	if (m_keyArray['F']) //focus
 	{
 		m_toolInputCommands.focus = true;
 	}
