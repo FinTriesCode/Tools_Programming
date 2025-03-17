@@ -29,10 +29,20 @@ public: //methods
 public:	//variables
 	std::vector<SceneObject>    m_sceneGraph;	//our scenegraph storing all the objects in the current chunk
 	ChunkObject					m_chunk;		//our landscape chunk
-	int m_selectedObject;						//ID of current Selection
+	int m_selectedObject;			
+	
+	void SetState(InputCommands::ToolState);
+	void Translate(DirectX::SimpleMath::Vector3 direction);
+	void Rotate(DirectX::SimpleMath::Vector3 direction);
+	void Scale(DirectX::SimpleMath::Vector3 direction);
+	//ID of current Selection
 
 private:	//methods
 	void	onContentAdded();
+
+	DirectX::SimpleMath::Vector3 objectTranslationDir{ 0, 0, 0 };    //where to move to
+	DirectX::SimpleMath::Vector3 objectRotationDir{ 0, 0, 0 };    //axis to rotate in
+	DirectX::SimpleMath::Vector3 objectScaleDir{ 0, 0, 0 };    //axis to scale in
 
 
 		
@@ -47,7 +57,5 @@ private:	//variables
 	int m_width;		//dimensions passed to directX
 	int m_height;
 	int m_currentChunk;			//the current chunk of thedatabase that we are operating on.  Dictates loading and saving. 
-	
 
-	
 };

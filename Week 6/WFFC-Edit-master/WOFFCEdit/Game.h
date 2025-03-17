@@ -57,6 +57,7 @@ public:
 
 	//object selection
 	int	 MousePicking();
+	void UpdateDisplayList(int objectID, std::vector<SceneObject>* sceneGraph);
 	RECT		m_ScreenDimensions;
 
 #ifdef DXTK_AUDIO
@@ -88,6 +89,7 @@ private:
 	Camera standardCamera;
 	Camera focusCamera;
 	float m_camRotRate;
+	int selectedID = 0;
 
 	//control variables
 	bool m_grid;							//grid rendering on / off

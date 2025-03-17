@@ -2,6 +2,16 @@
 
 struct InputCommands
 {
+	enum ToolState
+	{
+		Move,
+		Scale,
+		Transform,
+		Rotate
+	};
+
+	ToolState toolState;
+
 	bool forward;
 	bool back;
 	bool right;

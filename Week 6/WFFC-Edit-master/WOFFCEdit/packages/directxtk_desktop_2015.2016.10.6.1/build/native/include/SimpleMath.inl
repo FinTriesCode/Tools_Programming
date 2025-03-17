@@ -2567,7 +2567,7 @@ inline Matrix Matrix::CreateOrthographicOffCenter( float left, float right, floa
     return R;
 }
 
-inline Matrix Matrix::CreateFocusPoint( const Vector3& eye, const Vector3& target, const Vector3& up )
+inline Matrix Matrix::CreateLookAt( const Vector3& eye, const Vector3& target, const Vector3& up )
 {
     using namespace DirectX;
     Matrix R;
@@ -3704,3 +3704,4 @@ inline void Viewport::Unproject(const Vector3& p, const Matrix& proj, const Matr
     v = XMVector3Unproject(v, x, y, width, height, minDepth, maxDepth, projection, view, world);
     XMStoreFloat3(&result, v);
 }
+

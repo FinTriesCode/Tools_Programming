@@ -3,11 +3,17 @@
 
 
 BEGIN_MESSAGE_MAP(MFCMain, CWinApp)
-	ON_COMMAND(ID_FILE_QUIT,	&MFCMain::MenuFileQuit)
+	ON_COMMAND(ID_FILE_QUIT, &MFCMain::MenuFileQuit)
 	ON_COMMAND(ID_FILE_SAVETERRAIN, &MFCMain::MenuFileSaveTerrain)
 	ON_COMMAND(ID_EDIT_SELECT, &MFCMain::MenuEditSelect)
-	ON_COMMAND(ID_BUTTON40001,	&MFCMain::ToolBarButton1)
+	ON_COMMAND(ID_BUTTON40001, &MFCMain::ToolBarButton1)
 	ON_UPDATE_COMMAND_UI(ID_INDICATOR_TOOL, &CMyFrame::OnUpdatePage)
+	ON_COMMAND(ID_OBJECTMANIPULATIONTOOLS_TRANSFORM, &MFCMain::TransformToolButton)
+	ON_COMMAND(ID_OBJECTMANIPULATIONTOOLS_CAMERA, &MFCMain::MoveToolButton) //ID used as button name isnt playing ball.
+	ON_COMMAND(ID_OBJECTMANIPULATIONTOOLS_SCALE, &MFCMain::ScaleToolButton)
+	ON_COMMAND(ID_OBJECTMANIPULATIONTOOLS_ROTATE, &MFCMain::RotateToolButton)
+	
+	
 END_MESSAGE_MAP()
 
 BOOL MFCMain::InitInstance()
@@ -107,6 +113,26 @@ void MFCMain::ToolBarButton1()
 {
 	
 	m_ToolSystem.onActionSave();
+}
+
+void MFCMain::MoveToolButton()
+{
+	m_ToolSystem.SetState(InputCommands::Move);
+}
+
+void MFCMain::TransformToolButton()
+{
+	m_ToolSystem.SetState(InputCommands::Transform);
+}
+
+void MFCMain::ScaleToolButton()
+{
+	m_ToolSystem.SetState(InputCommands::Scale);
+}
+
+void MFCMain::RotateToolButton()
+{
+	m_ToolSystem.SetState(InputCommands::Rotate);
 }
 
 

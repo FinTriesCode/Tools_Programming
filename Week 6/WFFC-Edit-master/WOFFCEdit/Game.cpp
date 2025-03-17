@@ -595,7 +595,6 @@ void Game::RotateCamByMouse()
 //pick objects by mouse
 int Game::MousePicking()
 {
-	int selectedID = -1;
 	float pickedDistance = 0;
 
 	//setup near and far planes of frustum with mouse X and mouse y passed down from Toolmain. 
@@ -632,6 +631,11 @@ int Game::MousePicking()
 			//checking for ray intersection
 			if (m_displayList[i].m_model.get()->meshes[y]->boundingBox.Intersects(nearPoint, pickingVector, pickedDistance))
 			{
+				m_displayList[selectedID].ChangeColour(false);  //un-highlight last obj
+				selectedID = i;
+
+				m_displayList[selectedID].ChangeColour(true);  //highlight and select obj
+
 				//if the focus key is also being held then focus camera to object
 				if (m_InputCommands.focus)
 				{
@@ -653,4 +657,22 @@ int Game::MousePicking()
 
 	//if we got a hit.  return it.  
 	return selectedID;
+}
+
+void Game::UpdateDisplayList(int objectID, std::vector<SceneObject>* sceneGraph)
+{
+	DisplayObject& objInDisplay = m_displayList.at(objectID);
+	SceneObject& objInScene = sceneGraph->at(objectID);
+
+	objInDisplay.m_scale.x = objInScene.scaX;
+	objInDisplay.m_scale.y = objInScene.scaY;
+	objInDisplay.m_scale.z = objInScene.scaZ;
+	objInDisplay.m_scale.z = objInScene.scaZ;
+
+	objInDisplay.m_orientation.x = objInScene.rotX;
+	objInDisplay.m_orientation.y = objInScene.rotY;
+	objInDisplay.m_orientation.z = objInScene.rotZ;
+	objInDisplay.m_position.x = objInScene.posX;
+	objInDisplay.m_position.y = objInScene.posY;
+	objInDisplay.m_position.z = objInScene.posZ;
 }
