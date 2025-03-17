@@ -8,8 +8,7 @@ public:
 	DisplayObject();
 	~DisplayObject();
 
-	void ChangeColour(bool enable);
-
+	void ChangeColour(bool isHighlighted);
 	std::shared_ptr<DirectX::Model>						m_model;							//main Mesh
 	ID3D11ShaderResourceView *							m_texture_diffuse;					//diffuse texture
 
