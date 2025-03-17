@@ -30,3 +30,18 @@ DisplayObject::~DisplayObject()
 {
 //	delete m_texture_diffuse;
 }
+
+
+void DisplayObject::ChangeColour(bool isHighlighted)
+{
+	m_model->UpdateEffects([isHighlighted](DirectX::IEffect* effect)
+		{
+			auto highlightColour = dynamic_cast<DirectX::IEffectFog*>(effect);
+
+			if (highlightColour != nullptr)
+			{
+				highlightColour->SetFogEnabled(isHighlighted);
+				highlightColour->SetFogColor(DirectX::Colors::ForestGreen);
+			}
+		});
+}
