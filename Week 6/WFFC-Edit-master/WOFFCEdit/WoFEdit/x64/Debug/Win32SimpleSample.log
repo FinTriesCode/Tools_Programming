@@ -1,1 +1,9 @@
-﻿  Win32SimpleSample.vcxproj -> B:\Unity Engine Projects\ToolsProgramming\Tools_Programming\Week 6\WFFC-Edit-master\WOFFCEdit\x64\Debug\WoFEdit.exe
+﻿  Camera.cpp
+B:\Unity Engine Projects\ToolsProgramming\Tools_Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Camera.cpp(70,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+B:\Unity Engine Projects\ToolsProgramming\Tools_Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Camera.cpp(71,22): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+B:\Unity Engine Projects\ToolsProgramming\Tools_Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Camera.cpp(83,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+B:\Unity Engine Projects\ToolsProgramming\Tools_Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Camera.cpp(84,21): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+B:\Unity Engine Projects\ToolsProgramming\Tools_Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Camera.cpp(99,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+B:\Unity Engine Projects\ToolsProgramming\Tools_Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Camera.cpp(98,98): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+B:\Unity Engine Projects\ToolsProgramming\Tools_Programming\Week 6\WFFC-Edit-master\WOFFCEdit\Camera.cpp(98,66): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Win32SimpleSample.vcxproj -> B:\Unity Engine Projects\ToolsProgramming\Tools_Programming\Week 6\WFFC-Edit-master\WOFFCEdit\x64\Debug\WoFEdit.exe

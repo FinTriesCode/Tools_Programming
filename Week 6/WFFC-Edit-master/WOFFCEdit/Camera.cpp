@@ -56,8 +56,10 @@ void Camera::Update(InputCommands& Input)
 void Camera::MoveCam()
 {
 	pos += (inputs.right - inputs.left) * moveSpeed * camRight;
-	pos.y += (inputs.up - inputs.down) * moveSpeed;
+
 	pos += (inputs.forward - inputs.back) * moveSpeed * lookDir;
+
+	pos.y += (inputs.up - inputs.down) * moveSpeed;
 }
 
 void Camera::RotCam()
