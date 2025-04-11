@@ -21,13 +21,13 @@ void Camera::Initialise()
 	lookDir.y = 0.0f;
 	lookDir.z = 1.0f;
 
-	camUp.x = 0;
-	camUp.y = 0;
-	camUp.z = 0;
+	cameraUp.x = 0;
+	cameraUp.y = 0;
+	cameraUp.z = 0;
 
-	camRight.x = 1.0f;
-	camRight.y = 0.0f;
-	camRight.z = 0.0f;
+	cameraRight.x = 1.0f;
+	cameraRight.y = 0.0f;
+	cameraRight.z = 0.0f;
 }
 
 void Camera::Update(InputCommands& Input)
@@ -55,7 +55,7 @@ void Camera::Update(InputCommands& Input)
 
 void Camera::MoveCam()
 {
-	pos += (inputs.right - inputs.left) * moveSpeed * camRight;
+	pos += (inputs.right - inputs.left) * moveSpeed * cameraRight;
 
 	pos += (inputs.forward - inputs.back) * moveSpeed * lookDir;
 
@@ -100,7 +100,7 @@ void Camera::RotCam()
 	lookDir.Normalize();
 
 	//change right vec
-	lookDir.Cross(DirectX::SimpleMath::Vector3::UnitY, camRight);
+	lookDir.Cross(DirectX::SimpleMath::Vector3::UnitY, cameraRight);
 }
 
 void Camera::Focus(DirectX::SimpleMath::Vector3 target)
@@ -117,8 +117,8 @@ void Camera::Focus(DirectX::SimpleMath::Vector3 target)
 	lookDir.Normalize();
 
 	//get the right vector
-	lookDir.Cross(DirectX::SimpleMath::Vector3::UnitY, camRight);
-	camRight.Normalize();
+	lookDir.Cross(DirectX::SimpleMath::Vector3::UnitY, cameraRight);
+	cameraRight.Normalize();
 
 	//update to return data to the main camera of game class
 	focusedView = DirectX::SimpleMath::Matrix::CreateLookAt(pos, focusTarget, DirectX::SimpleMath::Vector3::UnitY);

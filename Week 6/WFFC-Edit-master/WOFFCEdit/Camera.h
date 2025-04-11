@@ -22,8 +22,8 @@ public:
 	DirectX::SimpleMath::Vector3 orientation;
 	DirectX::SimpleMath::Vector3 focusTarget;
 	DirectX::SimpleMath::Vector3 lookDir;
-	DirectX::SimpleMath::Vector3 camRight;
-	DirectX::SimpleMath::Vector3 camUp;
+	DirectX::SimpleMath::Vector3 cameraRight;
+	DirectX::SimpleMath::Vector3 cameraUp;
 
 	DirectX::SimpleMath::Matrix focusedView;	//view calculation
 	float sensitivity = 5.0f, moveSpeed = 1.5f;	//mouse sensitivity and movement speed
